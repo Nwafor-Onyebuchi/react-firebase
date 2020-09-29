@@ -7,8 +7,9 @@ export default function SignUp() {
   const [loading, setLoading] = useState(false);
   const onSubmit = async (data) => {
     console.log(data);
+    setLoading(true);
     try {
-      setLoading(true);
+      //   setLoading(true);
       await signup(data);
       reset();
     } catch (error) {
@@ -16,52 +17,66 @@ export default function SignUp() {
       console.log(error);
     }
   };
-  return (
-    <>
-      <form className="form" onSubmit={handleSubmit(onSubmit)}>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <input
-              type="text"
-              class="form-control"
-              id="inputEmail4"
-              placeholder="First name"
-              ref={register}
-            />
-          </div>
-          <div class="form-group col-md-6">
-            <input
-              type="text"
-              class="form-control"
-              id="inputPassword4"
-              placeholder="Last name"
-              ref={register}
-            />
-          </div>
-        </div>
-        <div class="form-group">
-          <input
-            type="email"
-            class="form-control"
-            id="inputAddress"
-            placeholder="email"
-            ref={register}
-          />
-        </div>
-        <div class="form-group">
-          <input
-            type="password"
-            class="form-control"
-            id="inputAddress2"
-            placeholder="Password"
-            ref={register}
-          />
-        </div>
 
-        <button type="submit" class="btn btn-primary">
-          Sign up
-        </button>
-      </form>
-    </>
+  const formClassName = `ui form ${loading ? "loading" : ""}`;
+
+  return (
+    <div className="login-container">
+      <div className="ui card login-card">
+        <div className="content">
+          <form className={formClassName} onSubmit={handleSubmit(onSubmit)}>
+            <div className="two fields">
+              <div className="field">
+                <label>
+                  First Name
+                  <input
+                    type="text"
+                    name="firstName"
+                    placeholder="First Name"
+                    ref={register}
+                  />
+                </label>
+              </div>
+              <div className="field">
+                <label>
+                  Last Name
+                  <input
+                    type="text"
+                    name="lastName"
+                    placeholder="Last Name"
+                    ref={register}
+                  />
+                </label>
+              </div>
+            </div>
+            <div className="field">
+              <label>
+                Email
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  ref={register}
+                />
+              </label>
+            </div>
+            <div className="field">
+              <label>
+                Password
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  ref={register}
+                />
+              </label>
+            </div>
+            <button className="ui primary button login" type="submit">
+              Sign Up
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
   );
 }
